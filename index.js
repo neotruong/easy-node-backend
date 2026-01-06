@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
-import swaggerJSDoc from "swagger-jsdoc";
+import { swaggerSpec } from "./swagger.js";
 import authRoutes from "./auth.routes.js";
 
 const app = express();
@@ -10,28 +10,8 @@ app.use(cors());
 app.use(express.json());
 
 /* ===================== */
-/* 🔧 Swagger Setup */
+/* 📚 Swagger */
 /* ===================== */
-
-const swaggerSpec = swaggerJSDoc({
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Easy Backend API",
-      version: "1.0.0"
-    },
-    tags: [
-      { name: "Auth", description: "Authentication APIs" },
-      { name: "Splash", description: "Splash / onboarding APIs" }
-    ],
-    servers: [
-      {
-        url: "http://localhost:3000"
-      }
-    ]
-  },
-  apis: ["./index.js", "./auth.routes.js"]
-});
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
@@ -82,25 +62,19 @@ app.get("/", (_, res) => {
  *                     properties:
  *                       id:
  *                         type: string
- *                         example: splash-1
  *                       title:
  *                         type: string
- *                         example: Get Discounts On All Products
  *                       description:
  *                         type: string
- *                         example: Enjoy exclusive discounts every day
  *                       image:
  *                         type: string
- *                         example: splash_discount_apple
  *                       type:
  *                         type: string
  *                         enum: [skippable, not_skippable]
  *                       cta:
  *                         type: string
- *                         example: Get Started
  *                       order:
  *                         type: number
- *                         example: 1
  */
 app.get("/api/splash", (req, res) => {
   res.json({
