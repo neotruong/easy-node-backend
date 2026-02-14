@@ -2,12 +2,14 @@ import express from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger.js";
-import authRoutes from "./auth.routes.js";
+import authRoutes from './feature/auth/auth.routes.js';
+import homeRoutes from './feature/home/home.routes.js';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/api/v1', homeRoutes);
 
 /* ===================== */
 /* 📚 Swagger */

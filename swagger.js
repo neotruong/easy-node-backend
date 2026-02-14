@@ -2,20 +2,22 @@ import swaggerJSDoc from "swagger-jsdoc";
 
 const options = {
   definition: {
-    openapi: "3.0.0",
+    openapi: '3.0.0',
     info: {
-      title: "Splash Backend API",
-      version: "1.0.0",
-      description: "Simple onboarding/splash backend for mobile apps"
+      title: 'Easy Node Backend API',
+      version: '1.0.0',
     },
-    servers: [
-      {
-        url: "/",               
-        description: "Current server"
-      }
+    // Define your categories here globally to prevent the 'null name' error
+    tags: [
+      { name: 'Splash', description: 'Onboarding screens' },
+      { name: 'Home', description: 'Dashboard data' },
+      { name: 'Auth', description: 'User registration and login' }
     ]
   },
-  apis: ["./index.js", "./auth.routes.js"]
+  apis: [
+    './index.js',         
+    './feature/**/*.js' // This will catch everything in subfolders       
+  ],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
